@@ -1,0 +1,15 @@
+RewriteEngine On
+
+RewriteBase /
+RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^?]*)$ index.php?_route_=$1 [L,QSA]
+
+# Fix for rewrite issue
+RewriteCond %{QUERY_STRING} ^.*[\x00-\x1F\x7F-\xFF].*$ [NC]
+RewriteRule .* - [F]
+
+AddDefaultCharset UTF-8
+

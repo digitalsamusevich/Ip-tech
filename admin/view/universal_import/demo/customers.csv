@@ -1,0 +1,6 @@
+"firstname","lastname","email","telephone","fax","password","newsletter","status","approved","safe","company","address_1","address_2","city","postcode","country","zone","default"
+"Luke","Skywalker","luke@test.test","0123456789","0123456789","password","0","1","1","1","","Mos esley 32","","Coruscant","10123","United States","","1"
+"Obi Wan","Kenobi","ben@test.test","0123456789","0123456789","password","0","1","1","1","","Mustafar 3","","Tatooine","10123","United States","","1"
+"R2","D2","r2@test.test","0123456789","0123456789","password","0","1","1","1","","B corridor","","Dark star","10123","United States","","1"
+"Jar Jar","Binks","jarjar@test.test","0123456789","0123456789","password","0","0","0","0","","Gungan street 4","","Naboo","10123","United States","","1"
+"Darth","Vador","vador@test.test","0123456789","0123456789","password","0","1","0","1","","B corridor","","Dark star","10123","United States","","1"

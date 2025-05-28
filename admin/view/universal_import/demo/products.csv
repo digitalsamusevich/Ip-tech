@@ -1,0 +1,4 @@
+"name","description","seo_keyword","seo_h1","tag","model","sku","location","price","quantity","manufacturer","product_category","image"
+"Product 1","Product 1 description","product_1","Product 1 H1","tags, tag","product1","0123456789","test location","105.90","50","Apple","Components","https://www.google.fr/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+"Product 2","Product 2 description","product_2","Product 2 H1","tags, tag","product2","0123456789","test location","90.50","50","Apple","Test","https://www.google.fr/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+"Product 3","Product 3 description","product_3","Product 3 H1","tags, tag","product3","0123456789","test location","26.00","50","Apple","Test 2 > Test 3","https://www.google.fr/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
