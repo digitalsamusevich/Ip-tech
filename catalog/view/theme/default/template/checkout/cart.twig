@@ -1,0 +1,108 @@
+{{ header }}
+			<div class="breadcrumbs">
+				<div class="wrapper">
+					{% set bl = breadcrumbs|length %}
+					{% set bplus = 1 %}
+
+					{% for breadcrumb in breadcrumbs %}
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							{% if bl > bplus %}
+								<span class="slash">-</span>
+							{% else %}
+
+							{% endif %}
+						{% set bplus = bplus + 1 %}
+
+					{% endfor %}
+				</div>
+			</div>
+
+            <div class="cart-section">
+                <div class="wrapper">
+                    <div class="cart-section-flex">
+                        <div class="cart-section-content cart-list">
+                            <div class="cart-section-row cart-section-row-top">
+                                <div class="cart-section-col cart-section-col-1">
+                                    <h1>{{ heading_title }}</h1>
+                                </div>
+                                <div class="cart-section-col cart-section-col-2">
+                                    <p>{{ column_name }}</p>
+                                </div>
+                                <div class="cart-section-col cart-section-col-3">
+                                    <p>{{ column_price }}</p>
+                                </div>
+                                <div class="cart-section-col cart-section-col-4">
+                                    <p>{{ column_quantity }}</p>
+                                </div>
+                                <div class="cart-section-col cart-section-col-5">
+                                    <p>{{ column_total }}</p>
+                                </div>
+                            </div>
+                            <div class="cart-section-content-layout">
+								{% if products %}
+									{% set bplus = 0 %}
+									{% set cart_id = 0 %}
+									{% for product in products %}
+									<div class="cart-item cart-section-row">
+										{% set cart_id = product.cart_id %}
+										<a class="cart-section-row-delete delete-cart-item" data-product-key="{{ product.cart_id }}">
+											<img src="catalog/view/theme/default/image/close.svg" alt="close">
+										</a>
+										<div class="cart-section-col cart-section-col-1">
+											{% if product.thumb %}<a href="{{ product.href }}" class="cart-section-col-img"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"></a>{% endif %}
+										</div>
+										<div class="cart-section-col cart-section-col-2">
+											<a href="{{ product.href }}">{{ product.name }}</a>
+										</div>
+										<div class="cart-section-col cart-section-col-3">
+											<p><span>{{ column_total }}</span><b>{{ product.price }}</b></p>
+										</div>
+										<div class="cart-section-col cart-section-col-4">
+											<div class="cart-quantity">
+												<div class="quantity-row">        
+													<button class="quantity-minus btn-minus{{ bplus }}" data-product-key="{{ product.cart_id }}">
+														<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<rect class="rect-1" width="25" height="25" rx="4" transform="matrix(-1 0 0 1 25 0)" fill="#EFEFEF"/>
+															<rect class="rect-2" class="" x="7" y="12" width="11" height="1" rx="0.5" fill="#2756ED" stroke="#2756ED"/>
+														</svg>
+													</button>                
+													<input type="text" style="    width: 40px;" id="quantity{{ product.cart_id }}"  name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" disabled value="1" data-min-value="0">
+													<button class="quantity-plus btn-plus{{ bplus }}" data-product-key="{{ product.cart_id }}">
+														<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<rect class="rect-1" width="25" height="25" rx="4" transform="matrix(-1 0 0 1 25 0)" fill="#EFEFEF"/>
+															<path d="M16.875 11.875H13.125V8.125C13.125 7.95924 13.0592 7.80027 12.9419 7.68306C12.8247 7.56585 12.6658 7.5 12.5 7.5C12.3342 7.5 12.1753 7.56585 12.0581 7.68306C11.9408 7.80027 11.875 7.95924 11.875 8.125V11.875H8.125C7.95924 11.875 7.80027 11.9408 7.68306 12.0581C7.56585 12.1753 7.5 12.3342 7.5 12.5C7.5 12.6658 7.56585 12.8247 7.68306 12.9419C7.80027 13.0592 7.95924 13.125 8.125 13.125H11.875V16.875C11.875 17.0408 11.9408 17.1997 12.0581 17.3169C12.1753 17.4342 12.3342 17.5 12.5 17.5C12.6658 17.5 12.8247 17.4342 12.9419 17.3169C13.0592 17.1997 13.125 17.0408 13.125 16.875V13.125H16.875C17.0408 13.125 17.1997 13.0592 17.3169 12.9419C17.4342 12.8247 17.5 12.6658 17.5 12.5C17.5 12.3342 17.4342 12.1753 17.3169 12.0581C17.1997 11.9408 17.0408 11.875 16.875 11.875Z" fill="#2756ED"/>
+														</svg>
+													</button>
+													
+													
+												</div>
+											</div>
+										</div>
+										<div class="cart-section-col cart-section-col-5 cart-total-summ-product-{{ product.cart_id }}">
+											<p><span>{{ column_total }}</span><b>{{ product.total }}</b></p>
+										</div>
+									</div>
+										{% set bplus = bplus + 1 %}
+									{% endfor %}
+								{% else %}
+									<div class="no-more-content">
+										<p>Корзина пуста, выберите товар в каталоге</p>
+										<a href="./catalog.html" class="btn">
+											<span class="btn-wrap">
+												<span>Каталог</span>
+											</span>
+										</a>
+									</div>
+								{% endif %}
+                            </div>
+                        </div>
+                        <div class="checkout-el checkout-order">
+                        </div>
+                    </div>
+                </div>
+            </div>
+{{ footer }} 
+
+<script>
+cart.order({{ cart_id }}, 'checkout');
+</script>

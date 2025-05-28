@@ -1,0 +1,64 @@
+<style>
+    table tr:nth-child(2n+1) {
+        background-color: #efeeee;
+    }
+</style>
+<table style="width: 100%" class="table-striped">
+    <tr>
+        <td align="center">Производитель</td>
+        <td align="center">Модель</td>
+        <td align="center">Наличие</td>
+        <td align="center">Price Diler</td>
+        <td align="center">Склад Киев</td>
+        <td align="center">Склад Мукачево</td>
+    </tr>
+    {% for product in products.TOVAR %}
+        {% if (product.VENDOR == 'Grandstream') %}
+        <tr>
+            <td align="center" style="border: 1px solid black;padding: 10px">{{ product.VENDOR }}</td>
+            <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PART_NUMBER }}</td>
+            <td align="center" style="border: 1px solid black;padding: 10px; {% if product.AVAILABLE == 'Y' %} background:green;{% else %} background:red;{% endif %}">{{ product.AVAILABLE }}</td>
+            <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PRICE_DILER }}</td>
+            <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_K }}</td>
+            <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_M }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    {% for product in products.TOVAR %}
+        {% if (product.VENDOR == 'JABRA') %}
+            <tr>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.VENDOR }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PART_NUMBER }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px; {% if product.AVAILABLE == 'Y' %} background:green;{% else %} background:red;{% endif %}">{{ product.AVAILABLE }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PRICE_DILER }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_K }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_M }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    {% for product in products.TOVAR %}
+        {% if (product.VENDOR == 'CISCO') %}
+            <tr>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.VENDOR }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PART_NUMBER }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px; {% if product.AVAILABLE == 'Y' %} background:green;{% else %} background:red;{% endif %}">{{ product.AVAILABLE }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PRICE_DILER }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_K }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_M }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    {% for product in products.TOVAR %}
+        {% if (product.VENDOR == 'CiscoSB') %}
+            <tr>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.VENDOR }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PART_NUMBER }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px; {% if product.AVAILABLE == 'Y' %} background:green;{% else %} background:red;{% endif %}">{{ product.AVAILABLE }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.PRICE_DILER }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_K }}</td>
+                <td align="center" style="border: 1px solid black;padding: 10px">{{ product.QUANTITY_M }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+

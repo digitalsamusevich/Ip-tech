@@ -1,0 +1,9 @@
+{% if languages|length > 1 %}
+        {% for language in languages %}
+		  {% if language.code == code %} 
+			  <span>{{ language.name }}</span>
+		  {% else %}
+			  <a href="{{ action }}&code={{ language.code }}" type="submit" name="{{ language.code }}">{{ language.name }}</a>
+		  {% endif %}
+        {% endfor %}
+{% endif %}

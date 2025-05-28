@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]>
+<html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]>
+<html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="{{ direction }}" lang="{{ lang }}">
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ title }}</title>
+    <base href="{{ base }}"/>
+    {% if description %}
+        <meta name="description" content="{{ description }}"/>
+    {% endif %}
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}"/>
+    {% endif %}
+
+    {% for style in styles %}
+        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+    {% endfor %}
+    {% for script in scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+
+    <link rel="stylesheet" href="catalog/view/theme/default/stylesheet/libs/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="catalog/view/theme/default/stylesheet/libs/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="catalog/view/theme/default/stylesheet/libs/owlcarousel/jquery.fancybox.min.css">
+    <link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/style.css?v=2.3"/>
+
+
+    {% for link in links %}
+        <link href="{{ link.href }}" rel="{{ link.rel }}"/>
+    {% endfor %}
+    {% for analytic in analytics %}
+        {{ analytic }}
+    {% endfor %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138419709-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-138419709-1');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Ads: 809565504 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-809565504"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-809565504');
+    </script>
+    <!-- Event snippet for Додавання в кошик conversion page -->
+    <script>
+        gtag('event', 'conversion', {'send_to': 'AW-809565504/fQrECJTalN0CEMD6g4ID'});
+    </script>
+    <script src="catalog/view/javascript/jquery-3.3.1.min.js"></script>
+    <script src="catalog/view/javascript/libs/jquery.maskedinput.min.js"></script>
+    <script src="catalog/view/javascript/libs/owlcarousel/owl.carousel.min.js"></script>
+
+</head>
+<body>
+
+<div class="main">
+    <div class="main-content">
+        {% if is_home %}
+        <div class="banner">
+            {% endif %}
+            <header class="header {% if not(is_home) %} header-white {% endif %}">
+                <div class="header-top">
+                    <div class="wrapper">
+                        <div class="header-top-left">
+                            <a href="{{ home }}">{{ text_home }}</a>
+                            <a href="/contacts">{{ text_contacts }}</a>
+                            <a href="/delivery">{{ text_delivery }}</a>
+                            <a href="/payment">{{ text_payment }}</a>
+                            <a href="/warranty">{{ text_guarantee }}</a>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="lang-links">
+                                {{ language }}
+                            </div>
+                            {{ config_comment }}
+                        </div>
+                    </div>
+                </div>
+                <div class="header-bottom">
+                    <div class="wrapper">
+                        {% if logo %}
+                            <a href="{{ home }}" class="logo"><img
+                                        src="{% if is_home %} {{ logo }} {% else %} {{ logo2 }} {% endif %}"
+                                        title="{{ name }}" alt="{{ name }}"/></a>
+                        {% else %}
+                            <a href="{{ home }}" class="logo">{{ name }}</a>
+                        {% endif %}
+                        <a href="#" class="btn catalog-menu-trigger">
+                                <span class="btn-wrap">
+                                    <img src="catalog/view/theme/default/image/c-icon.svg" alt="img">
+                                    <span>{{ text_catalog }}</span>
+                                </span>
+                        </a>
+                        <form method="get" id="search-form" class="search-form">
+                            <input type="search" name="search" placeholder="{{ text_search_placeholder }}">
+                            <div class="search-form-hidden" style="display: none">
+                            </div>
+                            <button type="submit" class="btn">
+                                    <span class="btn-wrap">
+                                        <img src="catalog/view/theme/default/image/search-icon.svg" alt="images">
+                                        <span>{{ text_search }}</span>
+                                    </span>
+                            </button>
+                        </form>
+                        <div class="header-bottom-right">
+                            {{ cart }}
+                            <a href="#" class="menu-trigger-open"><span></span><span></span><span></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-bottom header-menu">
+                    <div class="wrapper">
+                        <div class="header-menu-top">
+                            <a href="{{ home }}" class="logo"><img src="catalog/view/theme/default/image/logo-blue.svg"
+                                                                   alt="logo"></a>
+                            <div class="header-bottom-right">
+                                {{ cart }}
+                                <a href="#" class="menu-trigger-close"><img
+                                            src="catalog/view/theme/default/image/close-i.svg" alt="close"></a>
+                            </div>
+                        </div>
+                        <div class="header-menu-links">
+                            <div class="header-menu-links-top">
+                                <a href="{{ home }}">{{ text_home }}</a>
+                                <a href="/contacts">{{ text_contacts }}</a>
+                            </div>
+                            <div class="flex-container-center">
+                                <a href="#" class="btn catalog-menu-trigger">
+                                        <span class="btn-wrap">
+                                            <img src="catalog/view/theme/default/image/c-icon.svg" alt="img">
+                                            <span>{{ text_catalog }}</span>
+                                        </span>
+                                </a>
+                            </div>
+                            <div class="header-menu-links-bottom">
+                                {{ config_comment }}
+                            </div>
+                            <div class="lang-links">
+                                {{ language }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-categories">
+                    <div class="wrapper" style="            position: relative;            -ms-overflow-style: none;">
+                        <div class="header-categories-close-wrap">
+                            <p>{{ text_catalog }}</p>
+                            <a href="#" class="header-categories-close"><img
+                                        src="catalog/view/theme/default/image/close-i.svg" alt="close"></a>
+                        </div>
+                        {{ menu }}
+                    </div>
+                </div>
+            </header>
+            {% if is_home %}
+        </div>
+{% endif %}

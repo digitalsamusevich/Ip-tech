@@ -1,0 +1,44 @@
+{{ header }}
+
+<div class="breadcrumbs">
+    <div class="wrapper">
+        {% set bl = breadcrumbs|length %}
+        {% set bplus = 1 %}
+
+        {% for breadcrumb in breadcrumbs %}
+            <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+            {% if bl > bplus %}
+                <span class="slash">-</span>
+            {% else %}
+
+            {% endif %}
+            {% set bplus = bplus + 1 %}
+
+        {% endfor %}
+    </div>
+</div>
+
+<div class="search">
+    <div class="wrapper">
+		  {% if categories %}
+      <p><strong>{{ text_index }}</strong> {% for category in categories %}
+        &nbsp;&nbsp;&nbsp;<a href="index.php?route=product/manufacturer#{{ category.name }}">{{ category.name }}</a> {% endfor %} </p> </br></br>
+      {% for category in categories %}
+      <h2 id="{{ category.name }}">{{ category.name }}</h2>
+      {% if category.manufacturer %}
+      {% for manufacturers in category.manufacturer|batch(4) %}
+      <div class="row"> {% for manufacturer in manufacturers %}
+        <div class="col-sm-3"><a href="{{ manufacturer.href }}">{{ manufacturer.name }}</a></div>
+        {% endfor %} </div>
+      {% endfor %}
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      <p>{{ text_empty }}</p>
+      <div class="buttons clearfix">
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      </div>
+      {% endif %}
+	</div>
+</div>
+{{ footer }} 

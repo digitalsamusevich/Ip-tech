@@ -1,0 +1,42 @@
+                <div class="banner-slider banner-slider{{ module }} owl-carousel" style="background-image: url('catalog/view/theme/default/image/banner-bg.jpg');">
+					{% for banner in banners %}
+						<div class="banner-item">
+							<div class="wrapper">
+								<div class="banner-item-cnt">
+									<div class="title">{{ banner.title }}</div>
+									<a href="{{ banner.link }}" class="btn btn-big">
+										<span class="btn-wrap">
+											<span>{{ text_slideshow_btn }}</span>
+										</span>
+									</a>
+								</div>
+								<div class="banner-item-img">
+									<img src="{{ banner.image }}" alt="{{ banner.title }}">
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+                </div>
+
+
+<script type="text/javascript"><!--
+var bannerSlider = $('.banner-slider{{ module }}');
+bannerSlider.owlCarousel({
+	loop:true,
+	items: 1,
+	margin: 0,
+	nav: false,
+	dots: true,
+	autoHeight: true,
+	autoplay:true,
+	autoplayTimeout:3000,
+	autoplayHoverPause:true
+});
+
+if(bannerSlider){
+	var dot = $('.banner-slider{{ module }} .owl-dot');
+	dot.each(function(index) {
+		$(this).find('span').text('0' + (index + 1));
+	});
+}
+//--></script>

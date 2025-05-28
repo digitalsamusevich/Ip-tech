@@ -1,0 +1,51 @@
+{{ header }}
+			<div class="breadcrumbs">
+				<div class="wrapper">
+					{% set bl = breadcrumbs|length %}
+					{% set bplus = 1 %}
+
+					{% for breadcrumb in breadcrumbs %}
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							{% if bl > bplus %}
+								<span class="slash">-</span>
+							{% else %}
+
+							{% endif %}
+						{% set bplus = bplus + 1 %}
+
+					{% endfor %}
+				</div>
+			</div>
+
+            <div class="contacts">
+                <div class="wrapper">
+                    <div class="contacts-info">
+                        <div class="contacts-info-top">
+                            <div>
+                                <a href="tel:{{ telephone }}">{{ telephone }}</a>
+								<a href="tel:+380632549555">+38 (063) 25-49-555</a>
+								<a href="tel:380982249555">+38 (098) 22-49-555</a>
+                                <a href="mailto:info@ip-tech.com.ua">info@ip-tech.com.ua</a>
+                            </div>
+                            
+                           
+                        </div>
+						{% if locations %}
+                        <div class="contacts-info-row">
+                            <p>{{ contacts_info_row }}</p>
+                            <div class="contacts-info-row-list">
+								{% for location in locations %}
+									<div class="contacts-info-col">
+										<p><b>{{ location.name }}</b></p>
+										<a href="mailto:{{ location.comment }}">{{ location.comment }}</a>
+									</div>
+								{% endfor %}
+                            </div>
+                        </div>
+						{% endif %}
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9932.006103884318!2d31.2603859!3d51.513188!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5037f6859189f0f4!2sIP%20Ukraine!5e0!3m2!1sru!2sua!4v1620726363639!5m2!1sru!2sua" width="600" height="438" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+{{ footer }}

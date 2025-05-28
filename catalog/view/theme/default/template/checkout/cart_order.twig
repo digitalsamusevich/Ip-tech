@@ -1,0 +1,28 @@
+                            <h2>{{ column_order_title }}</h2>
+                            <div class="checkout-order-row">
+                                <span>{{ column_order_items }} <span>({{ total_products }})</span></span>
+                                <span>{{ no_discount_total_price }}</span>
+                            </div>
+                            <div class="checkout-order-row">
+                                <span>{{ column_order_discount }}</span>
+                                <span>{{ discount }}</span>
+                            </div>
+                            <div class="checkout-order-row">
+                                <span><b>{{ column_order_total }}</b></span>
+                                <span><b>{{ real_total_price }}</b></span>
+                            </div>
+                            <div class="checkout-order-bottom">
+								{% if to_checkout %}
+									<a href="{{ checkout }}"class="btn">
+										<span class="btn-wrap">
+											<span>{{ button_checkout }}</span>
+										</span>
+									</a>
+								{% else %}
+									<button type="submit" class="btn">
+										<span class="btn-wrap">
+											<span>{{ column_order_make }}</span>
+										</span>
+									</button>
+								{% endif %}
+                            </div>

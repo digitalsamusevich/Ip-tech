@@ -1,0 +1,59 @@
+            <div class="partners">
+                <div class="wrapper">
+                    <div class="partners-slider partners-slider{{ module }} owl-carousel">
+						{% for banner in banners %}
+							{% if banner.link %}
+								<a href="{{ banner.link }}" class="partner">
+									<img src="{{ banner.image }}" alt="{{ banner.title }}">
+								</a>
+							{% else %}
+								<img src="{{ banner.image }}" alt="{{ banner.title }}"/>
+							{% endif %}
+						{% endfor %}
+                    </div>
+                    <a href="#" class="btn catalog-menu-trigger">
+                        <span class="btn-wrap">
+                            <img src="catalog/view/theme/default/image/c-icon.svg" alt="img">
+                            <span>Каталог товаров</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+		var partnerSlider = $('.partners-slider{{ module }}');
+
+		partnerSlider.owlCarousel({
+			loop:true,
+			items: 6,
+			margin: 0,
+			nav: true,
+			dots: false,
+			autoHeight: true,
+			autoplay:true,
+			autoplayTimeout:3000,
+			autoplayHoverPause:true,
+			responsive:{
+				0:{
+					items:2,
+				},
+				400:{
+					items:2
+				},
+				600:{
+					items:3
+				},
+				767:{
+					items:4
+				},
+				900:{
+					items:5
+				},
+				1100:{
+					items:6
+				},
+			}
+		});
+
+
+</script>

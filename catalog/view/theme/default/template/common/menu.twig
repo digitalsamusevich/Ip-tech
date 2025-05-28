@@ -1,0 +1,151 @@
+{% if categories %}
+    <style>
+        .header-categories-items::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .header-categories-items {
+            -ms-overflow-style: none;
+        }
+
+        /* фф (свойство больше не работает, других способов тоже нет)*/
+        .header-categories-items {
+            overflow: -moz-scrollbars-none;
+        }
+        #more-line {
+            cursor: pointer;
+        }
+
+        #more-svg {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            left: 15%;
+            cursor: pointer;
+
+        }
+        .header-categories-items:before {
+            border-radius: 4px;
+        }
+        .header-categories-item-hidden {
+            border-radius: 4px;
+        }
+
+        @media screen and (max-width: 1200px) {
+            #more-svg {
+                left: 45%;
+            }
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.header-categories-items').style.height = window.innerHeight / 100 * 60 + 'px';
+        });
+    </script>
+    <div class="header-categories-items" style="position: static;max-height: 562px;overflow-y: scroll;/* height: 562.2px; */">
+        {% for category in categories %}
+            <div class="header-categories-item">
+                <a href="{{ category.href }}">
+                    {{ category.name }}
+                    <svg width="11" height="5" viewBox="0 0 11 5" fill="none">
+                        <path d="M10.8187 4.15575C10.819 4.04993 10.7957 3.94537 10.7503 3.84976C10.705 3.75415 10.6388 3.66991 10.5566 3.60325L6.30659 0.181996C6.17985 0.0778134 6.02087 0.020859 5.8568 0.020859C5.69273 0.020859 5.53375 0.0778134 5.40701 0.181996L1.15701 3.72366C1.01236 3.8439 0.921389 4.01667 0.90412 4.20397C0.886851 4.39127 0.944695 4.57776 1.06493 4.72241C1.18516 4.86707 1.35793 4.95803 1.54523 4.9753C1.73253 4.99257 1.91902 4.93473 2.06368 4.8145L5.86034 1.64825L9.65701 4.70825C9.76098 4.79486 9.88759 4.84989 10.0219 4.8668C10.1561 4.88372 10.2924 4.86182 10.4146 4.80369C10.5368 4.74557 10.6398 4.65366 10.7114 4.53883C10.783 4.424 10.8203 4.29106 10.8187 4.15575Z"
+                              fill="#2756ED"/>
+                    </svg>
+                </a>
+                {% if category.children %}
+                    <div class="header-categories-item-hidden">
+                        {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+                            {% for child in children %}
+                                <p><a href="{{ child.href }}">{{ child.name }}</a></p>
+                                {% if child.children %}
+                                    {% for c in child.children %}
+                                        <!--																<a href="{{ c.href }}">{{ c.name }}</a>-->
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {# categories not in menu #}
+        <div class="header-categories-item submenu">
+            <a id="more-line" style="display: none">
+                <span  id="more-line">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 409.6 409.6" style="display: block;height: 40px;width: 100px;margin-top: 10px;" xml:space="preserve">
+                        <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467
+                        c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"
+                        />
+                    </svg>
+                </span>
+            </a>
+        </div>
+        <div class="header-categories-item">
+            <a id="more" style="top: 10px">
+                <span id="more-svg">
+                    <svg class="more-svg"
+                         style="display: block; left: 15%; height: 35px; width: 55px;"
+                         version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 512 512" xml:space="preserve">
+                        <path d="M64,192c-35.285,0-64,28.715-64,64s28.715,64,64,64s64-28.715,64-64S99.285,192,64,192z M64,298.667
+                        c-23.531,0-42.667-19.136-42.667-42.667S40.469,213.333,64,213.333c23.531,0,42.667,19.136,42.667,42.667
+                        S87.531,298.667,64,298.667z"/>
+                        <path d="M256,192c-35.285,0-64,28.715-64,64s28.715,64,64,64s64-28.715,64-64S291.285,192,256,192z M256,298.667
+                        c-23.531,0-42.667-19.136-42.667-42.667s19.136-42.667,42.667-42.667s42.667,19.136,42.667,42.667S279.531,298.667,256,298.667z"
+                        />
+                        <path d="M448,192c-35.285,0-64,28.715-64,64s28.715,64,64,64c35.285,0,64-28.715,64-64S483.285,192,448,192z M448,298.667
+                        c-23.531,0-42.667-19.136-42.667-42.667s19.136-42.667,42.667-42.667c23.531,0,42.667,19.136,42.667,42.667
+                        S471.531,298.667,448,298.667z"/>
+                    </svg>
+                </span>
+            </a>
+        </div>
+        {% for category in categories2 %}
+            <div class="header-categories-item submenu" style="display: none">
+                <a href="{{ category.href }}">
+                    {{ category.name }}
+                    <svg width="11" height="5" viewBox="0 0 11 5" fill="none">
+                        <path d="M10.8187 4.15575C10.819 4.04993 10.7957 3.94537 10.7503 3.84976C10.705 3.75415 10.6388 3.66991 10.5566 3.60325L6.30659 0.181996C6.17985 0.0778134 6.02087 0.020859 5.8568 0.020859C5.69273 0.020859 5.53375 0.0778134 5.40701 0.181996L1.15701 3.72366C1.01236 3.8439 0.921389 4.01667 0.90412 4.20397C0.886851 4.39127 0.944695 4.57776 1.06493 4.72241C1.18516 4.86707 1.35793 4.95803 1.54523 4.9753C1.73253 4.99257 1.91902 4.93473 2.06368 4.8145L5.86034 1.64825L9.65701 4.70825C9.76098 4.79486 9.88759 4.84989 10.0219 4.8668C10.1561 4.88372 10.2924 4.86182 10.4146 4.80369C10.5368 4.74557 10.6398 4.65366 10.7114 4.53883C10.783 4.424 10.8203 4.29106 10.8187 4.15575Z"
+                              fill="#2756ED"/>
+                    </svg>
+                </a>
+                {% if category.children %}
+                    <div class="header-categories-item-hidden">
+                        {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+                            {% for child in children %}
+                                <p><a href="{{ child.href }}">{{ child.name }}</a></p>
+                                {% if child.children %}
+                                    {% for c in child.children %}
+                                        <!--																<a href="{{ c.href }}">{{ c.name }}</a>-->
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<script>
+    $(function () {
+        $("#more").on('click', function () {
+
+            $(".submenu").css({'display': 'block'});
+            $("#more-svg").css({'display': 'none'})
+            $("#more-line").css({'display':'block'})
+        })
+    });
+
+    $(function (){
+        $("#more-line").on('click', function (){
+            $(".submenu").css({'display': 'none'});
+            $("#more-svg").css({'display': 'block'})
+            $("#more-line").css({'display':'none'})
+        })
+    });
+</script>

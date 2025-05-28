@@ -1,0 +1,82 @@
+{{ header }}
+
+<div class="breadcrumbs">
+    <div class="wrapper">
+        {% set bl = breadcrumbs|length %}
+        {% set bplus = 1 %}
+
+        {% for breadcrumb in breadcrumbs %}
+            <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+            {% if bl > bplus %}
+                <span class="slash">-</span>
+            {% else %}
+
+            {% endif %}
+            {% set bplus = bplus + 1 %}
+
+        {% endfor %}
+    </div>
+</div>
+
+<div class="search">
+    <div class="wrapper">
+		{% if products %}
+		<div class="catalog-list">
+		{% for product in products %}
+		<div class="catalog-item cart-trigger-item">
+		<a href="{{ product.href }}" class="catalog-item-img">
+		{% if product.special %}
+		<div class="catalog-item-type catalog-item-type-red">Акция</div>
+		<div style="top: 38px;color: white;background: #ED2727; padding: 7px;border-radius: 5px;"
+		class="catalog-item-type catalog-item-type-red item-bottom">- {{ product.discount }}</div>
+		{% endif %}
+		<img class="cart-trigger-item-img" src="{{ product.thumb }}" alt="{{ product.name }}">
+		</a>
+		<div class="catalog-item-info">
+		<!--                                    <p class="catalog-item-category">{{ product.category.name }}</p>-->
+		<a href="{{ product.href }}" class="catalog-item-title">{{ product.name }}</a>
+		{% if product.model %}
+		<p class="catalog-item-art">{{ product.model }}</p>
+		{% endif %}
+		<p class="catalog-item-price">
+		{% if product.price %}
+		{% if not product.special %}
+		{{ product.price }}
+		{% else %} 
+		<span class="catalog-item-price-new"><span class="cart-trigger-item-price">{{ product.special }}</span></span> <span class="catalog-item-price-last">{{ product.price }}</span>
+		{% endif %}
+		{% endif %}
+		</p>
+		<a href="#" class="btn cart-trigger" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}', this); return false;">
+		<span class="btn-wrap">
+		<span>{{ button_cart }}</span>
+		</span>
+		</a>
+		</div>
+		</div>
+		{% endfor %}
+		</div>
+		<style>
+		ul.pagination > li {
+		display: inline;
+		padding: 5px 8px;
+		font-family: 'Montserrat SemiBold';
+		}
+
+	ul.pagination > li.active {
+	background: #2756ED;;
+	border-radius: 4px;
+	color: white;
+	}
+	</style>
+
+	<div class="row" style="width: 100%; text-align: right">
+	<div class="col-sm-6 text-left">{{ pagination }}</div>
+	{#<div class="col-sm-6 text-right">{{ results }}</div>#}
+	</div>
+	{% else %}
+	<h1>{{ text_empty }}</h1>
+	{% endif %} 
+	</div>
+</div>
+{{ footer }} 

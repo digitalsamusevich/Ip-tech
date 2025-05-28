@@ -1,0 +1,191 @@
+{{ header }}
+
+<div class="breadcrumbs">
+    <div class="wrapper">
+        {% set bl = breadcrumbs|length %}
+        {% set bplus = 1 %}
+
+        {% for breadcrumb in breadcrumbs %}
+            <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+            {% if bl > bplus %}
+                <span class="slash">-</span>
+            {% else %}
+
+            {% endif %}
+            {% set bplus = bplus + 1 %}
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="catalog">
+    <div class="wrapper">
+        <div class="catalog-top">
+            <h1>{{ heading_title }}</h1>
+            <div class="select-block">
+                <div class="select-block-trigger">
+                    <div class="select-block-trigger-text-1">{{ text_sort }}</div>
+                    {% for sorts in sorts %}
+                        {% if sorts.value == '%s-%s'|format(sort, order) %}
+                            <div class="select-block-trigger-text-2">{{ sorts.text }}</div>
+                        {% endif %}
+                    {% endfor %}
+                    <img src="catalog/view/theme/default/image/sel.svg" alt="sel">
+                </div>
+                <div class="select-block-hidden">
+                    {% for sorts in sorts %}
+                        {% if sorts.value == '%s-%s'|format(sort, order) %}
+                            <a href="{{ sorts.href }}" class="select-block-hidden-item active">{{ sorts.text }}</a>
+                        {% else %}
+                            <a href="{{ sorts.href }}" class="select-block-hidden-item">{{ sorts.text }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <div class="catalog-row">
+            {% if categories %}
+                <form action="#" class="catalog-filter">
+                    <a href="#" class="catalog-filter-trigger">
+                        <span>{{ text_categories }}</span>
+                        <img src="catalog/view/theme/default/image/sel.svg" alt="sel">
+                    </a>
+                    <div class="catalog-filter-cnt">
+                        <h4>{{ text_category }}</h4>
+                        <div class="catalog-filter-links">
+                            {% for category in categories %}
+                                <div class="catalog-filter-links-row">
+                                    <a href="{{ category.href }}">
+                                        <img src="catalog/view/theme/default/image/sss.svg" alt="svg">
+                                        <span>{{ category.name }}</span>
+                                    </a>
+                                    {% if category.children %}
+                                        {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+                                            {% for child in children %}
+                                                <div class="catalog-filter-links-row">
+                                                    <a href="{{ child.href }}">
+                                                        <img src="catalog/view/theme/default/image/sss.svg" alt="svg">
+                                                        <span>{{ child.name }}</span>
+                                                    </a>
+                                                    {% if child.children %}
+                                                        {% for c in child.children %}
+                                                            <div class="catalog-filter-links-row">
+                                                                <a href="{{ c.href }}">
+                                                                    <img src="catalog/view/theme/default/image/sss.svg"
+                                                                         alt="svg">
+                                                                    <span>{{ c.name }}</span>
+                                                                </a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+
+            {% if has_child %}
+
+            {% if child_categories %}
+                <div class="catalog-list catalog-list-2">
+                    {% for category in child_categories %}
+                        <div class="catalog-item cart-trigger-item">
+                            <a href="{{ category.href }}" class="catalog-item-img">
+                                <img class="cart-trigger-item-img" src="{{ category.image }}" alt="{{ category.name }}">
+                            </a>
+                            <div class="catalog-item-info">
+                                <a href="{{ category.href }}" class="catalog-item-title-new">{{ category.name }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% else %}
+            {% if products %}
+            <div class="catalog-list">
+                {% for product in products %}
+                    <div class="catalog-item cart-trigger-item">
+                        <a href="{{ product.href }}" class="catalog-item-img">
+                            {% if product.special %}
+                                <div class="catalog-item-type catalog-item-type-red">{{ text_discount }}</div>
+                                <div style="top: 38px;color: white;background: #ED2727; padding: 7px;border-radius: 5px;"
+                                     class="catalog-item-type catalog-item-type-red item-bottom">- {{ product.discount }}</div>
+                            {% endif %}
+                            <img class="cart-trigger-item-img" src="{{ product.thumb }}" alt="{{ product.name }}">
+                        </a>
+                        <div class="catalog-item-info">
+
+
+                            <!--                                    <p class="catalog-item-category">{{ product.model }}</p>-->
+
+
+                            <a href="{{ product.href }}" class="catalog-item-title">{{ product.name }}</a>
+                            {% if product.model %}
+                                <p class="catalog-item-art">{#{{ text_model }}: #}{{ product.model }}</p>
+                            {% endif %}
+                            <p class="catalog-item-price">
+                                {% if product.price %}
+                                    {% if not product.special %}
+                                        {{ product.price }}
+                                    {% else %}
+                                        <span class="catalog-item-price-new"><span
+                                                    class="cart-trigger-item-price">{{ product.special }}</span></span>
+                                        <span class="catalog-item-price-last">{{ product.price }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                            <a href="#" class="btn cart-trigger"
+                               onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}', this); return false;">
+                                        <span class="btn-wrap">
+                                            <span>{{ button_cart }}</span>
+                                        </span>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+                <style>
+                    ul.pagination > li {
+                        display: inline;
+                        padding: 5px 8px;
+                        font-family: 'Montserrat SemiBold';
+                    }
+
+                    ul.pagination > li.active {
+                       background: #2756ED;;
+                        border-radius: 4px;
+                        color: white;
+                    }
+                </style>
+
+                <div class="row" style="width: 100%; text-align: right">
+                    <div class="col-sm-6 text-left">{{ pagination }}</div>
+                    {#<div class="col-sm-6 text-right">{{ results }}</div>#}
+                </div>
+
+
+                {% endif %}
+                {% endif %}
+                {% if not categories and not products %}
+
+                    <p>{{ text_empty }}</p>
+                    <div class="buttons">
+                        <div class="pull-right"><a href="{{ continue }}"
+                                                   class="btn btn-primary">{{ button_continue }}</a></div>
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{{ footer }} 

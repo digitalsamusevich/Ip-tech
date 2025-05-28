@@ -1,0 +1,38 @@
+{{ header }}
+			<div class="breadcrumbs">
+				<div class="wrapper">
+					{% set bl = breadcrumbs|length %}
+					{% set bplus = 1 %}
+
+					{% for breadcrumb in breadcrumbs %}
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							{% if bl > bplus %}
+								<span class="slash">-</span>
+							{% else %}
+
+							{% endif %}
+						{% set bplus = bplus + 1 %}
+
+					{% endfor %}
+				</div>
+			</div>
+
+            <div class="cart-section">
+                <div class="wrapper">
+                    <div class="cart-section-flex">
+                        <div class="cart-list no-cnt" style="width: 100%;">
+									<div class="no-more-content">
+										<p>{{ text_error }}</p>
+										<a href="{{ continue }}" class="btn">
+											<span class="btn-wrap">
+												<span>{{ button_continue }}</span>
+											</span>
+										</a>
+									</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+
+
+{{ footer }}

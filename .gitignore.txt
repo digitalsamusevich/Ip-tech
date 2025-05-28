@@ -1,0 +1,24 @@
+# Кеш і тимчасові файли
+image/cache/
+image/temp/
+system/storage/
+upload/
+
+# Конфігурація з доступами
+config.php
+admin/config.php
+
+# Інсталяція
+install/
+vendor/
+
+# IDE та OS
+*.log
+*.DS_Store
+*.swp
+*.swo
+*.bak
+Thumbs.db
+.idea/
+.vscode/
+node_modules/

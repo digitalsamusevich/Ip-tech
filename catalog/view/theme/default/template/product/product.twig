@@ -1,0 +1,217 @@
+{{ header }}
+
+			<div class="breadcrumbs">
+				<div class="wrapper">
+					{% set bl = breadcrumbs|length %}
+					{% set bplus = 1 %}
+
+					{% for breadcrumb in breadcrumbs %}
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							{% if bl > bplus %}
+								<span class="slash">-</span>
+							{% else %}
+
+							{% endif %}
+						{% set bplus = bplus + 1 %}
+
+					{% endfor %}
+				</div>
+			</div>
+            <div class="card">
+                <div class="wrapper">
+                    <div class="card-top-wrap">
+                        <div style="{% if images is empty %}width:100%{% endif %}" class="card-top cart-trigger-item">
+                            <div class="card-top-slider">
+                               <div class="card-top-slider-left">
+                                   <a href="{{ popup }}" data-fancybox="gallery" class="card-top-slider-item active">
+                                       <img src="{{ thumb }}" alt="{{ heading_title }}">
+                                   </a>
+									{% if images %}
+										{% set imgplus = 0 %}
+										{% for image in images %}
+											<a href="{{ image.popup }}" data-fancybox="gallery" class="card-top-slider-item">
+												<img src="{{ image.popup }}" alt="{{ heading_title }}">
+											</a>
+											{% set imgplus = imgplus + 1 %}
+										{% endfor %}
+									{% endif %}
+                                </div>
+								{% if thumb %}
+									<a data-fancybox="gallery" href="{{ popup }}" class="card-top-slider-right">
+										{% if product.special %}
+											<span class="card-top-slider-right-top card-top-slider-right-top-red">Акция</span>
+										{% endif %}
+										<img class="cart-trigger-item-img" src="{{ thumb }}" alt="{{ heading_title }}">
+									</a>
+								{% endif %}
+                            </div>
+                            <div class="card-top-info">
+                                <h1>{{ heading_title }}</h1>
+                                <div class="card-top-info-row">
+                                    <p>{{ text_last_price }}</p>
+									{% if model %}
+										<p>{{ text_model }}: {{ model }}</p>
+									{% endif %}
+                                </div>
+                                <div class="card-top-info-price">
+										{% if price %}
+											{% if special and discount %}
+												<span class="catalog-item-price-new"><span class="cart-trigger-item-price"></span></span>
+												<div>
+													<p>{{ price }}</p>
+													<span>- {{ discount }}</span>
+												</div>
+												<p><span class="cart-trigger-item-price">{{ special }}</span></p>
+											{% else %}
+												<p><span class="cart-trigger-item-price">{{ price }}</span></p>
+											{% endif %}
+										{% endif %}
+                                </div>
+                                <div>
+                                    <a href="#" class="btn cart-trigger" onclick="cart.add('{{ product_id }}', '{{ minimum }}', this); return false;">
+                                    <span class="btn-wrap">
+                                        <span>{{ button_cart }}</span>
+                                    </span>
+                                    </a>
+                                </div>
+                                <div style="margin-top: 10px">
+                                    <a href="/support" class="btn cart-trigger">
+                                    <span class="btn-wrap">
+                                        <span>{{ text_support }}</span>
+                                    </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-text">
+                        <h2 class="title-2">{{ tab_description }}</h2>
+                        {{ description }}
+                    </div>
+
+					{% if comparison %}
+                    <div class="card-comparison">
+						{{ comparison }}
+                    </div>
+					{% endif %}
+
+
+            {% if attribute_groups %}
+                {% for attribute_group in attribute_groups %}
+                    <div class="card-tech">
+                        <h2 class="title-2">{{ attribute_group.name }}</h2>
+                        <div class="card-tech-content">
+						{% for attribute in attribute_group.attribute %}
+                            <div class="card-tech-row">
+                                <h4>{{ attribute.name }}</h4>
+                                <p>{{ attribute.text }}</p>
+                            </div>
+						{% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+                    <div class="card-benefits">
+						{{ content_bottom }}
+                    </div>
+                </div>
+            </div>
+
+<style>
+
+
+</style>
+
+<script>
+    function getTableInfo(tableName){
+        var tableInfo = Array.prototype.map.call(document.querySelectorAll(tableName + ' tr'), function(tr){
+            return Array.prototype.map.call(tr.querySelectorAll('td'), function(td){
+                return td.innerHTML;
+            });
+        });
+        return tableInfo;
+    }
+
+    function getItems(data){
+        var items = [];
+        for(var i = 0; i < data.length; i++){
+            var item = [];
+            for(var j = 0; j < data[i].length; j++){
+                item.push(data[j][i]);
+            }
+            items.push(item);
+        }
+        return items;
+    }
+
+    function getParams(data){
+        p = [];
+        for(var i = 1; i < data.length; i++)
+            p.push(data[i][0]);
+        return p;
+    }
+
+    function strip_tags( str ){
+        return str.replace(/<\/?[^>]+>/gi, '').replace('&nbsp;', ' ');
+    }
+
+    var tables = document.querySelectorAll('.card-comparison > table');
+    for(var t = 0; t < tables.length; t++) {
+        var table = tables[t];
+        table.setAttribute('id', 'table' + t);
+        table.style.width = '100%';
+    }
+
+    if(window.innerWidth < 768){
+        var tables = document.querySelectorAll('.card-comparison > table');
+        for(var t = 0; t < tables.length; t++){
+            var table = tables[t];
+            table.setAttribute('id', 'table' + t);
+
+            var tableInfo = getTableInfo('#table' + t);
+
+            var Params = getParams(tableInfo);
+            var Items = getItems(tableInfo);
+
+            table.remove();
+
+            var cardComparison = document.getElementsByClassName('card-comparison')[0];
+            var compareDiv = document.createElement('div');
+            compareDiv.className = 'card-comparison-column card-comparison-column-1';
+            compareDiv.innerHTML = '<div class="card-comparison-row"> <h2 class="title-2">' + strip_tags(Items[0][0]) + '</h2> </div>';
+            cardComparison.appendChild(compareDiv);
+
+            for(var j = 1; j < Items.length; j++){
+                var divColumn = document.createElement('div');
+                divColumn.className = 'card-comparison-column';
+
+                //img
+
+                var divImgRow = document.createElement('div');
+                divImgRow.className = 'card-comparison-row';
+                divImgRow.innerHTML = Items[j][0].match('<img(.*?)>')[0];;
+                divColumn.appendChild(divImgRow);
+                //img
+
+                for(var i = 0; i < Params.length; i++){
+                    var divRow = document.createElement('div');
+                    divRow.className = 'card-comparison-row';
+                    divRow.innerHTML = '<h4>' + strip_tags(Params[i]) + '</h4> <p>' + strip_tags(Items[j][i + 1]) + '</p>';
+                    divColumn.appendChild(divRow);
+                }
+                cardComparison.appendChild(divColumn);
+            }
+
+            // Column
+            Items.forEach(function(item){
+
+            });
+        }
+    }
+
+</script>
+
+
+{{ footer }}

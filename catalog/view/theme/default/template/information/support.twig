@@ -1,0 +1,280 @@
+{{ header }}
+<div class="breadcrumbs">
+    <div class="wrapper">
+        {% set bl = breadcrumbs|length %}
+        {% set bplus = 1 %}
+
+        {% for breadcrumb in breadcrumbs %}
+            <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+            {% if bl > bplus %}
+                <span class="slash">-</span>
+            {% else %}
+
+            {% endif %}
+            {% set bplus = bplus + 1 %}
+
+        {% endfor %}
+    </div>
+</div>
+
+<div class="contacts">
+    <div class="wrapper">
+        <div class="contacts-info">
+            <div class="tech-description">
+                <div class="tech-title">
+                    <div class="main-title">
+                        {{ heading_title_1 }}
+                    </div>
+                    <div class="sub-title">
+                        {{ heading_title_2 }}
+                    </div>
+                </div>
+                <div class="tech">
+                    <div class="table-title">
+                        <div class="table-title-logo">
+                            <img src="image/catalog/logo-blue.png" alt="">
+                        </div>
+                        <div class="table-title-sub">Base <div>
+                                 <span>12 {{ text_month }}</span>
+                            </div></div>
+                        <div class="table-title-sub">Premium <div>
+                                 <span>12 {{ text_month }}</span>
+                            </div>
+                        </div>
+                        <div class="table-title-sub">
+                            Enterprise
+                            <div>
+                                 <span>12 {{ text_month }}</span>
+                            </div></div>
+                    </div>
+                    <table class="tech-table">
+                        <tr>
+                            <td>{{ text_1 }}</td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_2 }}</td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_3 }}</td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_4 }}</td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ text_5 }}
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/cancel.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/cancel.svg" alt="">
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/cancel.svg" alt="">
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ text_6 }}
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/cancel.svg" alt="">
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                                <div>
+                                    <img src="image/catalog/ok.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_7 }}</td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_8 }}
+                            </td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_9 }}
+                            </td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_10 }}
+                            </td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                            <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                        </tr>
+						<tr>
+                            <td>Техническая поддержка 24/7</td>
+                                <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                                <td class="td-white"><img src="image/catalog/cancel.svg" alt=""></td>
+                                <td class="td-white"><img src="image/catalog/ok.svg" alt=""></td>
+                            </tr>
+                        <tr>
+                            <td>{{ text_11 }}
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    16
+                                </div>
+                                <div>
+                                    {{ text_hours }}
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    8
+                                </div>
+                                <div>
+                                    {{ text_hours }}
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    2
+                                </div>
+                                <div>
+                                    {{ text_hour }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_12 }}
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    10
+                                </div>
+                                <div>
+                                    {{ text_days }}
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    5
+                                </div>
+                                <div>
+                                    {{ text_days }}
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    1
+                                </div>
+                                <div>
+                                    {{ text_day }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ text_13 }}
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    5
+                                </div>
+                                <div>
+                                    {{ text_days }}
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    2
+                                </div>
+                                <div>
+                                    {{ text_days }}
+                                </div>
+                            </td>
+                            <td class="td-white">
+                                <div>
+                                    2
+                                </div>
+                                <div>
+                                    {{ text_days }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="tech-bottom">
+                        <a href="#" class="btn cart-trigger" id="support">
+                    <span class="btn-wrap">
+                        <span>{{ button_contact }}</span>
+                    </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#support').on('click', (e)=> {
+        e.preventDefault();
+        $('.social-links-menu').addClass('active-menu');
+        $('.social-links-menu').show(300);
+    })
+</script>
+
+{{ footer }}

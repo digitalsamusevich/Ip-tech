@@ -1,0 +1,28 @@
+{{ header }}
+<div class="breadcrumbs">
+    <div class="wrapper">
+        {% set bl = breadcrumbs|length %}
+        {% set bplus = 1 %}
+
+        {% for breadcrumb in breadcrumbs %}
+            <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+            {% if bl > bplus %}
+                <span class="slash">-</span>
+            {% else %}
+
+            {% endif %}
+            {% set bplus = bplus + 1 %}
+
+        {% endfor %}
+    </div>
+</div>
+
+<div class="contacts">
+    <div class="wrapper">
+        <div class="contacts-info">
+            {{ description }}
+        </div>
+    </div>
+</div>
+
+{{ footer }}

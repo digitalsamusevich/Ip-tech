@@ -1,0 +1,296 @@
+{{ header }}
+
+			<div class="breadcrumbs">
+				<div class="wrapper">
+					{% set bl = breadcrumbs|length %}
+					{% set bplus = 1 %}
+
+					{% for breadcrumb in breadcrumbs %}
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							{% if bl > bplus %}
+								<span class="slash">-</span>
+							{% else %}
+
+							{% endif %}
+						{% set bplus = bplus + 1 %}
+
+					{% endfor %}
+				</div>
+			</div>
+            <div class="checkout">
+                <div class="wrapper">
+                    <h1 class="title-big">{{ heading_title }}</h1>
+                    <form class="form" data-toggle="validator" id="datas-form">
+                        <div class="checkout-row">
+                            <div class="checkout-el checkout-data">
+                                <h2>{{ entry_contacts_title }}</h2>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="firstname" placeholder="{{ entry_firstname }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="secondname" placeholder="{{ entry_lastname }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control tel-trigger" name="phone" placeholder="{{ entry_telephone }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="{{ entry_email }}" name="email" required>
+                                </div>
+                                <h2>Доставка (Новою поштою)</h2>
+                                <div class="form-group" style="position: relative">
+                                    <input type="text" class="form-control" placeholder="{{ entry_city }}" name="city" id="city" required>
+                                    <div class="form-group" id="search-city" style="display: none;width: 100%;position: absolute;border: 1px solid #D7D7D7;background: white;font-size: 16px;color: #9F9F9F;font-family: 'Montserrat Regular';border-radius: 4px">
+                                    </div>
+                                    <input type="hidden" class="form-control" name="ref" id="ref" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="{{ entry_address_1 }}" name="address" id="address" required>
+                                    <div class="form-group" id="search-address" style="display: none;width: 100%;position: absolute;border: 1px solid #D7D7D7;background: white;font-size: 16px;color: #9F9F9F;font-family: 'Montserrat Regular';border-radius: 4px">
+                                    </div>
+                                </div>
+                                <div style="width: 100%" class="form-group" style="position: relative">
+                                    <select name="payment" class="form-control" required>
+                                        <option value="">{{ entry_payment }}</option>
+                                        <option value="Послугою (Грошовий переказ) від Нової Пошти">{{ payment_1 }}</option>
+                                        <option value="Безготівковий (з ПДВ)">{{ payment_2 }}</option>
+                                        <option value="Безготівковий (без ПДВ)">{{ payment_3 }}</option>
+                                    </select>
+                                </div>
+                                <div style="width: 100%" class="form-group" id="add">
+
+                                </div>
+                                <div class="form-group form-group-textarea">
+                                    <textarea style="resize: none;" maxlength="200" class="form-control" placeholder="{{ entry_comment }}" name="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="checkout-el checkout-order">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+</div>
+{{ footer }}
+
+<script type="text/javascript"><!--
+cart.order({{ cart_id }});
+//--></script>
+
+<script type="text/javascript">
+    $("select").change(()=> {
+        $("#remove_pay").remove();
+        $("#remove_edr").remove();
+        if ($("select").val() != '' && $("select").val() != 'Послугою (Грошовий переказ) від НоваПошта' &&  $("select").val() != 'Услугой (Денежный перевод) от НоваяПочта'){
+            $("#add").append(
+                "                                <div id= \"remove_pay\" class=\"form-group\">\n" +
+                "                                    <input type=\"text\" class=\"form-control\" placeholder=\"{{ entry_pay_firm }}\" name=\"pay_firm\" required>\n" +
+                "                                </div>\n" +
+                "                                <div id= \"remove_edr\" class=\"form-group\">\n" +
+                "                                    <input type=\"text\" class=\"form-control\" placeholder=\"{{ entry_edrpou }}\" name=\"edrpou\" required>\n" +
+                "                                </div>"
+            );
+        }
+    })
+
+    $("#city").keyup(() => {
+        const city = $("#city").val();
+
+        const data = {
+            "apiKey" : "026866509420e270e90c20f5aab1331e",
+            "modelName": "Address",
+            "calledMethod": "searchSettlements",
+            "methodProperties": {
+                "CityName": city,
+                "limit": 7
+            }
+        }
+        const settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.novaposhta.ua/v2.0/json/",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json",
+
+            },
+            "processData": false,
+            "data": JSON.stringify(data)
+        }
+
+        $.ajax(settings).done(function (response) {
+            if (response.success) {
+                const cities = response.data[0].Addresses;
+                $('#search-city').html('');
+                cities.forEach(item => {
+                    if (item.Warehouses>0){
+                        $('#search-city').append('<p style="padding: 5px;"><a id="city-a" href="' + item.Ref + '">' + item.MainDescription + '</a></p>');
+                    }
+                })
+
+                $('#search-city').css('display', 'block');
+            } else {
+                $('#search-city').css('display', 'none');
+            }
+        });
+    })
+    $(document).on('click', '#city-a' , function (e) {
+        const href = $(this).attr('href');
+        const text = $(this).text();
+        e.preventDefault();
+        $("#city").val(text);
+        $("#ref").val(href);
+        $('#search-city').css('display', 'none');
+    })
+
+    $("#address").keyup(() => {
+        const city = $("#city").val();
+        const address = $("#address").val();
+        const data = {
+            "apiKey" : "026866509420e270e90c20f5aab1331e",
+            "modelName": "Address",
+            "calledMethod": "getWarehouses",
+            "methodProperties": {
+                "CityName": city,
+                "FindByString": address,
+                "PostFinance": address,
+                "limit": 7
+            }
+        }
+        const settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.novaposhta.ua/v2.0/json/",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json",
+
+            },
+            "processData": false,
+            "data": JSON.stringify(data)
+        }
+
+        $.ajax(settings).done(function (response) {
+            const departments = response['data'];
+            if (departments.length>0 ) {
+                let i = 0;
+                $('#search-address').html('');
+                if(departments.length > 0 ){
+                    departments.forEach(address => {
+                        if (i<7){
+                            $('#search-address').append('<p style="padding: 5px;"><a id="city-d" href="">' + address.Description + '</a></p>');
+                            i++;
+                        }
+                    })
+                }
+                $('#search-address').css('display', 'block');
+            } else {
+                $('#search-address').css('display', 'none');
+            }
+        });
+    })
+
+    $(document).on('click', '#city-a' , function (e) {
+        const href = $(this).attr('href');
+        const text = $(this).text();
+        e.preventDefault();
+        $("#city").val(text);
+        $("#ref").val(href);
+        $('#search-city').css('display', 'none');
+    })
+    $(document).on('click', '#city-d' , function (e) {
+        const text = $(this).text();
+        e.preventDefault();
+        $("#address").val(text);
+        $('#search-address').css('display', 'none');
+    })
+
+/*    $("#city").keyup(function() {
+        var v = $("#city").val();
+
+        if(v.length > 2){
+            $.ajax({
+                url: 'index.php?route=checkout/novaposhta',
+                type: 'get',
+                data: 'filter_city=' + v + '&limit=7',
+                dataType: 'json',
+                beforeSend: function() {
+                },
+                complete: function() {
+                },
+                success: function(arr) {
+                    console.log(arr);
+                    $('#search-city').html('');
+                    if(arr.length > 0){
+                        arr.forEach(city => {
+                            $('#search-city').append('<p style="padding: 5px;"><a id="city-a" href="' + city.Ref + '">' + city.Description + '</a></p>');
+                        })
+                    }
+                    $('#search-city').css('display', 'block');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    				console.log(thrownError);
+                                    console.log(xhr.statusText);
+                                    console.log(xhr.responseText);
+                }
+            });
+        } else  {
+            $('#search-city').css('display', 'none');
+        }
+    })
+
+    $(document).on('click', '#city-a' , function (e) {
+        const href = $(this).attr('href');
+        const text = $(this).text();
+        e.preventDefault();
+        $("#city").val(text);
+        $("#ref").val(href);
+        $('#search-city').css('display', 'none');
+
+    })
+
+    $("#address").keyup(function() {
+        const v = $("#address").val();
+        const city = $("#ref").val();
+
+        if(v != '' && city != ''){
+            $.ajax({
+                url: 'index.php?route=checkout/novaposhta/department',
+                type: 'get',
+                data: 'filter_department=' + v + '&city=' + city,
+                dataType: 'json',
+                beforeSend: function() {
+                },
+                complete: function() {
+                },
+                success: function(arr) {
+
+                    $('#search-address').html('');
+                    if(arr.length > 0){
+                        arr.forEach(address => {
+                            $('#search-address').append('<p style="padding: 5px;"><a id="city-d" href="">' + address.Description + '</a></p>');
+                        })
+                    }
+                    $('#search-address').css('display', 'block');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(thrownError);
+                    console.log(xhr.statusText);
+                    console.log(xhr.responseText);
+                }
+            });
+        } else  {
+            $('#search-city').css('display', 'none');
+        }
+    })
+
+    $(document).on('click', '#city-d' , function (e) {
+        /!*const href = $(this).attr('href');*!/
+        const text = $(this).text();
+        e.preventDefault();
+        $("#address").val(text);
+        $('#search-address').css('display', 'none');
+    })*/
+
+</script>
